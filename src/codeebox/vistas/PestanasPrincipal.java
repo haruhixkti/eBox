@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package codeebox.vistas;
-
+import infoProyecto.CapturaInformacion;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -15,12 +15,13 @@ import javax.swing.JPanel;
  * @author Katherine
  */
 public class PestanasPrincipal extends javax.swing.JFrame {
-    
+    CapturaInformacion informacionProyecto = new CapturaInformacion();
     boolean faceRecoder = false;
     boolean activityRender = false;
     boolean nuevaPerspectiva = false;
     String direccionIpEscrita,dispositivoSeleccionado;
     ArrayList<String> dipositivos ;
+    boolean ipValida= true;
     
 
     /**
@@ -29,6 +30,9 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     public PestanasPrincipal() {
         initComponents();
         conexion.setVisible(false);
+        txtSeleccionarDispositivo.setVisible(false);
+        btnSeleccionarDispositivo.setVisible(false);
+        txtDispositivoSeleccionado.setVisible(false);
     }
 
     /**
@@ -69,9 +73,8 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         direccionIp = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel12 = new javax.swing.JLabel();
+        txtSeleccionarDispositivo = new javax.swing.JLabel();
         btnSeleccionarDispositivo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         txtDispositivoSeleccionado = new javax.swing.JLabel();
         ObtencionMuestras = new javax.swing.JPanel();
         btnObtencionMuestras = new javax.swing.JLabel();
@@ -341,7 +344,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                     .addGroup(agregarPerspectivaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnAgregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout informacionPerspectiva1cLayout = new javax.swing.GroupLayout(informacionPerspectiva1c);
@@ -359,9 +362,9 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addComponent(informacionPerspectiva1a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(agregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         conexion.setBackground(new java.awt.Color(255, 255, 255));
@@ -402,11 +405,16 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(33, 33, 33));
         jLabel11.setText("Ingrese dirección IP");
 
-        jLabel12.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(33, 33, 33));
-        jLabel12.setText("Seleccionar Dispositivo");
+        txtSeleccionarDispositivo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        txtSeleccionarDispositivo.setForeground(new java.awt.Color(33, 33, 33));
+        txtSeleccionarDispositivo.setText("Seleccionar Dispositivo");
 
         btnSeleccionarDispositivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-More Than.png"))); // NOI18N
+        btnSeleccionarDispositivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSeleccionarDispositivoMouseClicked(evt);
+            }
+        });
 
         txtDispositivoSeleccionado.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         txtDispositivoSeleccionado.setForeground(new java.awt.Color(117, 117, 117));
@@ -418,22 +426,20 @@ public class PestanasPrincipal extends javax.swing.JFrame {
             conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conexionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(conexionLayout.createSequentialGroup()
-                            .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(direccionIp, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(btnBuscarDireccionIp))
-                        .addGroup(conexionLayout.createSequentialGroup()
-                            .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel12)
-                                .addComponent(txtDispositivoSeleccionado))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSeleccionarDispositivo)))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(conexionLayout.createSequentialGroup()
+                        .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(direccionIp, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscarDireccionIp))
+                    .addGroup(conexionLayout.createSequentialGroup()
+                        .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSeleccionarDispositivo)
+                            .addComponent(txtDispositivoSeleccionado))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSeleccionarDispositivo)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         conexionLayout.setVerticalGroup(
@@ -451,13 +457,11 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(conexionLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addComponent(txtSeleccionarDispositivo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtDispositivoSeleccionado))
                     .addComponent(btnSeleccionarDispositivo))
-                .addGap(26, 26, 26)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout informacionPerspectivaLayout = new javax.swing.GroupLayout(informacionPerspectiva);
@@ -478,9 +482,9 @@ public class PestanasPrincipal extends javax.swing.JFrame {
             .addGroup(informacionPerspectivaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(informacionPerspectiva1c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(conexion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout creacionProyectoLayout = new javax.swing.GroupLayout(creacionProyecto);
@@ -721,6 +725,19 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private void btnBuscarDireccionIpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarDireccionIpMouseClicked
         // TODO add your handling code here:
          direccionIpEscrita=direccionIp.getText();
+         if(true){
+             
+             ipValida= true;
+             txtSeleccionarDispositivo.setVisible(true);
+             btnSeleccionarDispositivo.setVisible(true);
+             txtDispositivoSeleccionado.setVisible(true);
+           
+             
+         }
+         else
+         {
+             //pop up que indique que la ip no es valida
+         }
         
     }//GEN-LAST:event_btnBuscarDireccionIpMouseClicked
 
@@ -765,6 +782,22 @@ public class PestanasPrincipal extends javax.swing.JFrame {
           conexion.setVisible(false);
         }
     }//GEN-LAST:event_agregarPerspectivaMouseClicked
+
+    private void btnSeleccionarDispositivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSeleccionarDispositivoMouseClicked
+        // TODO add your handling code here:
+        PopUpSeleccionarDispositivo popUpSeleccionarDispositivo = new PopUpSeleccionarDispositivo();
+        popUpSeleccionarDispositivo.setVisible(true);
+        
+       
+        
+    }//GEN-LAST:event_btnSeleccionarDispositivoMouseClicked
+    public void activarDispositivoSeleccionado(){
+     if (informacionProyecto.getDispositivoSeleccionado()==true){
+         
+         
+         
+        }
+    }
     
     public void setLblColor(JPanel lbl)
     {
@@ -835,7 +868,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel informacionPerspectiva1c;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -844,10 +876,10 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel principal;
     private javax.swing.JLabel textoPestana;
     private javax.swing.JLabel txtDispositivoSeleccionado;
+    private javax.swing.JLabel txtSeleccionarDispositivo;
     private javax.swing.JPanel visualizacionMuestras;
     // End of variables declaration//GEN-END:variables
 }
