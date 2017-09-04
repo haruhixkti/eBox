@@ -6,6 +6,7 @@
 package codeebox.vistas;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,12 +18,17 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     
     boolean faceRecoder = false;
     boolean activityRender = false;
+    boolean nuevaPerspectiva = false;
+    String direccionIpEscrita,dispositivoSeleccionado;
+    ArrayList<String> dipositivos ;
+    
 
     /**
      * Creates new form PestanasPrincipal
      */
     public PestanasPrincipal() {
         initComponents();
+        conexion.setVisible(false);
     }
 
     /**
@@ -46,9 +52,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         creacionProyecto = new javax.swing.JPanel();
         informacionPerspectiva = new javax.swing.JPanel();
         informacionPerspectiva1c = new javax.swing.JPanel();
-        btnAgregarPerspectiva = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         informacionPerspectiva1b = new javax.swing.JPanel();
         btnActivityRender = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -57,6 +60,19 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnFaceRecoder = new javax.swing.JLabel();
+        agregarPerspectiva = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnAgregarPerspectiva = new javax.swing.JLabel();
+        conexion = new javax.swing.JPanel();
+        btnBuscarDireccionIp = new javax.swing.JLabel();
+        direccionIp = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
+        btnSeleccionarDispositivo = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        txtDispositivoSeleccionado = new javax.swing.JLabel();
         ObtencionMuestras = new javax.swing.JPanel();
         btnObtencionMuestras = new javax.swing.JLabel();
         visualizacionMuestras = new javax.swing.JPanel();
@@ -154,21 +170,13 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         contenido.setLayout(new java.awt.CardLayout());
 
         creacionProyecto.setBackground(new java.awt.Color(255, 255, 255));
+        creacionProyecto.setForeground(new java.awt.Color(33, 33, 33));
+        creacionProyecto.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
 
         informacionPerspectiva.setBackground(new java.awt.Color(255, 255, 255));
-        informacionPerspectiva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)));
 
         informacionPerspectiva1c.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnAgregarPerspectiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Add-50.png"))); // NOI18N
-
-        jLabel10.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(33, 33, 33));
-        jLabel10.setText("Agregar Perspectiva");
-
-        jLabel9.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(117, 117, 117));
-        jLabel9.setText("Agregue otra perspectiva ");
+        informacionPerspectiva1c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)));
 
         informacionPerspectiva1b.setBackground(new java.awt.Color(255, 255, 255));
         informacionPerspectiva1b.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -205,18 +213,18 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addGroup(informacionPerspectiva1bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         informacionPerspectiva1bLayout.setVerticalGroup(
             informacionPerspectiva1bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(informacionPerspectiva1bLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(informacionPerspectiva1bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnActivityRender)
                     .addGroup(informacionPerspectiva1bLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnActivityRender))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -280,20 +288,69 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        agregarPerspectiva.setBackground(new java.awt.Color(255, 255, 255));
+        agregarPerspectiva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarPerspectivaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                agregarPerspectivaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                agregarPerspectivaMouseExited(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(117, 117, 117));
+        jLabel13.setText("Agregue otra perspectiva ");
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel10.setText("Agregar Perspectiva");
+
+        btnAgregarPerspectiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Add-50.png"))); // NOI18N
+        btnAgregarPerspectiva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarPerspectivaMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout agregarPerspectivaLayout = new javax.swing.GroupLayout(agregarPerspectiva);
+        agregarPerspectiva.setLayout(agregarPerspectivaLayout);
+        agregarPerspectivaLayout.setHorizontalGroup(
+            agregarPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(agregarPerspectivaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAgregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(agregarPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel13))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        agregarPerspectivaLayout.setVerticalGroup(
+            agregarPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(agregarPerspectivaLayout.createSequentialGroup()
+                .addGroup(agregarPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(agregarPerspectivaLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel13))
+                    .addGroup(agregarPerspectivaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAgregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout informacionPerspectiva1cLayout = new javax.swing.GroupLayout(informacionPerspectiva1c);
         informacionPerspectiva1c.setLayout(informacionPerspectiva1cLayout);
         informacionPerspectiva1cLayout.setHorizontalGroup(
             informacionPerspectiva1cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(informacionPerspectiva1a, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(informacionPerspectiva1cLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAgregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(informacionPerspectiva1cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(agregarPerspectiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         informacionPerspectiva1cLayout.setVerticalGroup(
             informacionPerspectiva1cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,14 +359,105 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addComponent(informacionPerspectiva1a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(informacionPerspectiva1cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(informacionPerspectiva1cLayout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(agregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        conexion.setBackground(new java.awt.Color(255, 255, 255));
+        conexion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)));
+
+        btnBuscarDireccionIp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Search.png"))); // NOI18N
+        btnBuscarDireccionIp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarDireccionIpMouseClicked(evt);
+            }
+        });
+
+        direccionIp.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        direccionIp.setForeground(new java.awt.Color(117, 117, 117));
+        direccionIp.setBorder(null);
+        direccionIp.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                direccionIpFocusGained(evt);
+            }
+        });
+        direccionIp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                direccionIpMouseClicked(evt);
+            }
+        });
+        direccionIp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direccionIpActionPerformed(evt);
+            }
+        });
+        direccionIp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                direccionIpKeyTyped(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel11.setText("Ingrese dirección IP");
+
+        jLabel12.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel12.setText("Seleccionar Dispositivo");
+
+        btnSeleccionarDispositivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-More Than.png"))); // NOI18N
+
+        txtDispositivoSeleccionado.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        txtDispositivoSeleccionado.setForeground(new java.awt.Color(117, 117, 117));
+        txtDispositivoSeleccionado.setText("Dispositivo seleccionado");
+
+        javax.swing.GroupLayout conexionLayout = new javax.swing.GroupLayout(conexion);
+        conexion.setLayout(conexionLayout);
+        conexionLayout.setHorizontalGroup(
+            conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conexionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(conexionLayout.createSequentialGroup()
+                            .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(direccionIp, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(btnBuscarDireccionIp))
+                        .addGroup(conexionLayout.createSequentialGroup()
+                            .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12)
+                                .addComponent(txtDispositivoSeleccionado))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSeleccionarDispositivo)))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        conexionLayout.setVerticalGroup(
+            conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conexionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conexionLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9))
-                    .addComponent(btnAgregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(391, Short.MAX_VALUE))
+                        .addComponent(direccionIp, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarDireccionIp, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(conexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conexionLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDispositivoSeleccionado))
+                    .addComponent(btnSeleccionarDispositivo))
+                .addGap(26, 26, 26)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout informacionPerspectivaLayout = new javax.swing.GroupLayout(informacionPerspectiva);
@@ -317,15 +465,22 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         informacionPerspectivaLayout.setHorizontalGroup(
             informacionPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informacionPerspectivaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(informacionPerspectiva1c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(informacionPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(conexion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(informacionPerspectivaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(informacionPerspectiva1c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(103, 103, 103))
         );
         informacionPerspectivaLayout.setVerticalGroup(
             informacionPerspectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(informacionPerspectivaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(informacionPerspectiva1c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(conexion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout creacionProyectoLayout = new javax.swing.GroupLayout(creacionProyecto);
@@ -542,6 +697,74 @@ public class PestanasPrincipal extends javax.swing.JFrame {
          resetLblColor(informacionPerspectiva1b);
         }
     }//GEN-LAST:event_informacionPerspectiva1bMouseClicked
+
+    private void direccionIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direccionIpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_direccionIpActionPerformed
+
+    private void direccionIpFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_direccionIpFocusGained
+        // TODO add your handling code here:
+        //direccionIp.setText("");
+       
+    }//GEN-LAST:event_direccionIpFocusGained
+
+    private void direccionIpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_direccionIpMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_direccionIpMouseClicked
+
+    private void direccionIpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionIpKeyTyped
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_direccionIpKeyTyped
+
+    private void btnBuscarDireccionIpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarDireccionIpMouseClicked
+        // TODO add your handling code here:
+         direccionIpEscrita=direccionIp.getText();
+        
+    }//GEN-LAST:event_btnBuscarDireccionIpMouseClicked
+
+    private void btnAgregarPerspectivaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarPerspectivaMouseClicked
+        // TODO add your handling code here:
+        conexion.setVisible(true);
+    }//GEN-LAST:event_btnAgregarPerspectivaMouseClicked
+
+    private void agregarPerspectivaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarPerspectivaMouseEntered
+        // TODO add your handling code here:
+          if (nuevaPerspectiva==true){
+        
+         btnAgregarPerspectiva.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+        }
+        else {
+        btnAgregarPerspectiva.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Plus.png"))));
+               setLblColor(agregarPerspectiva);
+        }
+    }//GEN-LAST:event_agregarPerspectivaMouseEntered
+
+    private void agregarPerspectivaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarPerspectivaMouseExited
+        // TODO add your handling code here:
+       btnAgregarPerspectiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Add-50.png")));
+              if (nuevaPerspectiva==false){
+        
+       resetLblColor(agregarPerspectiva);
+        }
+    }//GEN-LAST:event_agregarPerspectivaMouseExited
+
+    private void agregarPerspectivaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarPerspectivaMouseClicked
+        // TODO add your handling code here:
+          if (nuevaPerspectiva == false){
+        nuevaPerspectiva = true;
+         setLblColor(agregarPerspectiva);
+          //
+             btnAgregarPerspectiva.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+             conexion.setVisible(true);
+        }
+        else{
+        nuevaPerspectiva = false;
+         resetLblColor(agregarPerspectiva);
+          conexion.setVisible(false);
+        }
+    }//GEN-LAST:event_agregarPerspectivaMouseClicked
     
     public void setLblColor(JPanel lbl)
     {
@@ -589,32 +812,42 @@ public class PestanasPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ObtencionMuestras;
+    private javax.swing.JPanel agregarPerspectiva;
     private javax.swing.JPanel barraPrimaria;
     private javax.swing.JPanel barraPrincipal;
     private javax.swing.JLabel btnActivityRender;
     private javax.swing.JLabel btnAgregarPerspectiva;
     private javax.swing.JLabel btnAtras;
+    private javax.swing.JLabel btnBuscarDireccionIp;
     private javax.swing.JLabel btnConfiguracion;
     private javax.swing.JLabel btnConsultas;
     private javax.swing.JLabel btnFaceRecoder;
     private javax.swing.JLabel btnObtencionMuestras;
+    private javax.swing.JLabel btnSeleccionarDispositivo;
+    private javax.swing.JPanel conexion;
     private javax.swing.JPanel contenido;
     private javax.swing.JPanel creacionProyecto;
+    private javax.swing.JTextField direccionIp;
     private javax.swing.JLabel infoPestana;
     private javax.swing.JPanel informacionPerspectiva;
     private javax.swing.JPanel informacionPerspectiva1a;
     private javax.swing.JPanel informacionPerspectiva1b;
     private javax.swing.JPanel informacionPerspectiva1c;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel principal;
     private javax.swing.JLabel textoPestana;
+    private javax.swing.JLabel txtDispositivoSeleccionado;
     private javax.swing.JPanel visualizacionMuestras;
     // End of variables declaration//GEN-END:variables
 }
