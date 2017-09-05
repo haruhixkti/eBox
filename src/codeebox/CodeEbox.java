@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package codeebox;
+import codeebox.vistas.VentanaPrincipal;
 
 /**
  *
@@ -16,6 +17,8 @@ public class CodeEbox {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        VentanaPrincipal ventanaprincipal = new VentanaPrincipal();
+        ventanaprincipal.iniciar();
     }
     
 }

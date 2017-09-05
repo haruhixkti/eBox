@@ -5,8 +5,10 @@
  */
 package codeebox.vistas;
 import infoProyecto.CapturaInformacion;
+import perspectiva.PerspectivaCliente;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
  * @author Katherine
  */
 public class PestanasPrincipal extends javax.swing.JFrame {
+    
     CapturaInformacion informacionProyecto = new CapturaInformacion();
     boolean faceRecoder = false;
     boolean activityRender = false;
@@ -22,6 +25,13 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     String direccionIpEscrita,dispositivoSeleccionado;
     ArrayList<String> dipositivos ;
     boolean ipValida= true;
+    public static boolean ScreenGo = false;
+    public static boolean ScreenStop = false;
+    public boolean abortar = false;
+    
+    //Socket 
+    private final String ipOld = "";
+    private PerspectivaCliente pc = null;
     
 
     /**
@@ -76,6 +86,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         txtSeleccionarDispositivo = new javax.swing.JLabel();
         btnSeleccionarDispositivo = new javax.swing.JLabel();
         txtDispositivoSeleccionado = new javax.swing.JLabel();
+        informacionDelProyecto = new javax.swing.JPanel();
         ObtencionMuestras = new javax.swing.JPanel();
         btnObtencionMuestras = new javax.swing.JLabel();
         visualizacionMuestras = new javax.swing.JPanel();
@@ -121,6 +132,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         infoPestana.setText("Ingrese la información de su investigación");
 
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Back-50.png"))); // NOI18N
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseClicked(evt);
@@ -232,6 +244,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         );
 
         informacionPerspectiva1a.setBackground(new java.awt.Color(255, 255, 255));
+        informacionPerspectiva1a.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informacionPerspectiva1a.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 informacionPerspectiva1aMouseClicked(evt);
@@ -292,6 +305,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         );
 
         agregarPerspectiva.setBackground(new java.awt.Color(255, 255, 255));
+        agregarPerspectiva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         agregarPerspectiva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 agregarPerspectivaMouseClicked(evt);
@@ -487,17 +501,36 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        informacionDelProyecto.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout informacionDelProyectoLayout = new javax.swing.GroupLayout(informacionDelProyecto);
+        informacionDelProyecto.setLayout(informacionDelProyectoLayout);
+        informacionDelProyectoLayout.setHorizontalGroup(
+            informacionDelProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 299, Short.MAX_VALUE)
+        );
+        informacionDelProyectoLayout.setVerticalGroup(
+            informacionDelProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 474, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout creacionProyectoLayout = new javax.swing.GroupLayout(creacionProyecto);
         creacionProyecto.setLayout(creacionProyectoLayout);
         creacionProyectoLayout.setHorizontalGroup(
             creacionProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(creacionProyectoLayout.createSequentialGroup()
                 .addComponent(informacionPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2249, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informacionDelProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1944, Short.MAX_VALUE))
         );
         creacionProyectoLayout.setVerticalGroup(
             creacionProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(informacionPerspectiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(creacionProyectoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(informacionDelProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         contenido.add(creacionProyecto, "card2");
@@ -724,19 +757,53 @@ public class PestanasPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarDireccionIpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarDireccionIpMouseClicked
         // TODO add your handling code here:
+        System.out.println("");
          direccionIpEscrita=direccionIp.getText();
-         if(true){
+         if(!"".equals(direccionIpEscrita) && !ipOld.equals(direccionIpEscrita)){
              
              ipValida= true;
-             txtSeleccionarDispositivo.setVisible(true);
+             /**/
+           new Thread(new Runnable (){
+           @Override
+           public void run(){
+               pc = new PerspectivaCliente(direccionIpEscrita);
+               if(PerspectivaCliente.con){
+               pc.start();
+               pc.enviarInstruccion("DISPOSITIVOS");
+               System.out.println("Enviando instruccion a servidor: DISPOSITIVOS");
+               while(!PerspectivaCliente.listaDispositivos){
+                   System.out.println("Esperando dispositivos");
+               }
+               
+               List<String> dispositivos = pc.getDispositivos();
+               String[] dis = new String[dispositivos.size()];
+                        for (int i = 0; i < dispositivos.size(); i++) {
+                            dis[i] = dispositivos.get(i);
+                            System.out.println(dispositivos.get(i));
+                        }
+              txtSeleccionarDispositivo.setVisible(true);
              btnSeleccionarDispositivo.setVisible(true);
              txtDispositivoSeleccionado.setVisible(true);
+               
+               
+               } else {
+                   System.out.println("\"No se puede conectar con IP ingresada\"");
+               }
+               
+               
+               
+           }
            
+           }).start();
              
          }
-         else
+         else if ("".equals(direccionIpEscrita))
          {
              //pop up que indique que la ip no es valida
+             System.out.println("\"Debe ingresar IP\"");
+         }
+         else if(ipOld.equals(direccionIpEscrita)){
+             System.out.println( "Ingresó la misma IP");
          }
         
     }//GEN-LAST:event_btnBuscarDireccionIpMouseClicked
@@ -808,6 +875,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     {
         lbl.setBackground(new Color(255,255,255));
     }
+      
     /**
      * @param args the command line arguments
      */
@@ -842,6 +910,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ObtencionMuestras;
@@ -862,6 +931,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel creacionProyecto;
     private javax.swing.JTextField direccionIp;
     private javax.swing.JLabel infoPestana;
+    private javax.swing.JPanel informacionDelProyecto;
     private javax.swing.JPanel informacionPerspectiva;
     private javax.swing.JPanel informacionPerspectiva1a;
     private javax.swing.JPanel informacionPerspectiva1b;
