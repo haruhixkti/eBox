@@ -7,10 +7,14 @@ package codeebox.vistas;
 import infoProyecto.CapturaInformacion;
 import perspectiva.PerspectivaCliente;
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -28,6 +32,10 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     public static boolean ScreenGo = false;
     public static boolean ScreenStop = false;
     public boolean abortar = false;
+    //plug-in
+    boolean plugInFelicidad = false;
+    boolean plugInEnfado = false;
+    boolean plugInVideoMaster = false;
     
     //Socket 
     private final String ipOld = "";
@@ -66,14 +74,14 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         creacionProyecto = new javax.swing.JPanel();
         informacionPerspectiva = new javax.swing.JPanel();
         informacionPerspectiva1c = new javax.swing.JPanel();
-        informacionPerspectiva1b = new javax.swing.JPanel();
-        btnActivityRender = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         informacionPerspectiva1a = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnFaceRecoder = new javax.swing.JLabel();
+        informacionPerspectiva1b = new javax.swing.JPanel();
+        btnActivityRender = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         agregarPerspectiva = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -87,8 +95,69 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         btnSeleccionarDispositivo = new javax.swing.JLabel();
         txtDispositivoSeleccionado = new javax.swing.JLabel();
         informacionDelProyecto = new javax.swing.JPanel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
+        txtNombreProyecto = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel14 = new javax.swing.JLabel();
+        path = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        txtCodigoProyecto = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        btnSeleccionarDestino = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcionProyecto = new javax.swing.JTextArea();
+        reconocedor = new javax.swing.JPanel();
+        btnVideoMaster = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        iconPlugInVideoMaster = new javax.swing.JLabel();
+        btnPlugInEnfado = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        iconPlugInEnfado = new javax.swing.JLabel();
+        btnPluginFelicidad = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        iconPlugInFelicidad = new javax.swing.JLabel();
+        btnAgregarPlugIn = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        btnFaceRecoder4 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        btnCrearProyecto = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         ObtencionMuestras = new javax.swing.JPanel();
-        btnObtencionMuestras = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        Perspectivas = new javax.swing.JPanel();
+        perspectivaFaceRecorder = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        btnVistaPreviaFaceRecorder = new javax.swing.JLabel();
+        perspectivaExterna = new javax.swing.JPanel();
+        btnVistaPreviaPerspectivaExterna = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        perspectivaActivityRender = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        btnVistaPreviaActivityRender = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
         visualizacionMuestras = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -193,6 +262,41 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         informacionPerspectiva1c.setBackground(new java.awt.Color(255, 255, 255));
         informacionPerspectiva1c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)));
 
+        informacionPerspectiva1a.setBackground(new java.awt.Color(255, 255, 255));
+        informacionPerspectiva1a.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        informacionPerspectiva1a.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                informacionPerspectiva1aMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                informacionPerspectiva1aMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                informacionPerspectiva1aMouseExited(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel5.setText("Face recoder");
+
+        jLabel6.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(117, 117, 117));
+        jLabel6.setText("Detección frontal del individuo");
+
+        btnFaceRecoder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-User Male_2.png"))); // NOI18N
+        btnFaceRecoder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFaceRecoderMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFaceRecoderMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFaceRecoderMouseExited(evt);
+            }
+        });
+
         informacionPerspectiva1b.setBackground(new java.awt.Color(255, 255, 255));
         informacionPerspectiva1b.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informacionPerspectiva1b.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -243,41 +347,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        informacionPerspectiva1a.setBackground(new java.awt.Color(255, 255, 255));
-        informacionPerspectiva1a.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        informacionPerspectiva1a.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                informacionPerspectiva1aMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                informacionPerspectiva1aMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                informacionPerspectiva1aMouseExited(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(33, 33, 33));
-        jLabel5.setText("Face recoder");
-
-        jLabel6.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(117, 117, 117));
-        jLabel6.setText("Detección frontal del individuo");
-
-        btnFaceRecoder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-User Male_2.png"))); // NOI18N
-        btnFaceRecoder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFaceRecoderMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnFaceRecoderMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnFaceRecoderMouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout informacionPerspectiva1aLayout = new javax.swing.GroupLayout(informacionPerspectiva1a);
         informacionPerspectiva1a.setLayout(informacionPerspectiva1aLayout);
         informacionPerspectiva1aLayout.setHorizontalGroup(
@@ -290,6 +359,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         informacionPerspectiva1aLayout.setVerticalGroup(
             informacionPerspectiva1aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,7 +371,9 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
                     .addComponent(btnFaceRecoder))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         agregarPerspectiva.setBackground(new java.awt.Color(255, 255, 255));
@@ -365,7 +437,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         informacionPerspectiva1c.setLayout(informacionPerspectiva1cLayout);
         informacionPerspectiva1cLayout.setHorizontalGroup(
             informacionPerspectiva1cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(informacionPerspectiva1a, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(agregarPerspectiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -374,9 +445,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
             .addGroup(informacionPerspectiva1cLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(informacionPerspectiva1a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(informacionPerspectiva1b, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(agregarPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -498,20 +567,452 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addComponent(informacionPerspectiva1c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(conexion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         informacionDelProyecto.setBackground(new java.awt.Color(255, 255, 255));
+        informacionDelProyecto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)));
+
+        jLabel12.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel12.setText("Nombre del proyecto");
+
+        txtNombreProyecto.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtNombreProyecto.setForeground(new java.awt.Color(117, 117, 117));
+        txtNombreProyecto.setBorder(null);
+        txtNombreProyecto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNombreProyectoFocusGained(evt);
+            }
+        });
+        txtNombreProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNombreProyectoMouseClicked(evt);
+            }
+        });
+        txtNombreProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreProyectoActionPerformed(evt);
+            }
+        });
+        txtNombreProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreProyectoKeyTyped(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel14.setText("Destino del proyecto");
+
+        path.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        path.setForeground(new java.awt.Color(117, 117, 117));
+        path.setText("Aquí aparecera el destino seleccionado");
+
+        txtCodigoProyecto.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtCodigoProyecto.setForeground(new java.awt.Color(117, 117, 117));
+        txtCodigoProyecto.setBorder(null);
+        txtCodigoProyecto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCodigoProyectoFocusGained(evt);
+            }
+        });
+        txtCodigoProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCodigoProyectoMouseClicked(evt);
+            }
+        });
+        txtCodigoProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoProyectoActionPerformed(evt);
+            }
+        });
+        txtCodigoProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoProyectoKeyTyped(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel17.setText("Descripción del proyecto");
+
+        jLabel18.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel18.setText("Código del proyecto");
+
+        btnSeleccionarDestino.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
+        btnSeleccionarDestino.setText("...");
+        btnSeleccionarDestino.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSeleccionarDestinoMouseClicked(evt);
+            }
+        });
+
+        txtDescripcionProyecto.setColumns(20);
+        txtDescripcionProyecto.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        txtDescripcionProyecto.setForeground(new java.awt.Color(117, 117, 117));
+        txtDescripcionProyecto.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcionProyecto);
 
         javax.swing.GroupLayout informacionDelProyectoLayout = new javax.swing.GroupLayout(informacionDelProyecto);
         informacionDelProyecto.setLayout(informacionDelProyectoLayout);
         informacionDelProyectoLayout.setHorizontalGroup(
             informacionDelProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
+            .addGroup(informacionDelProyectoLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(informacionDelProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel17)
+                    .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(informacionDelProyectoLayout.createSequentialGroup()
+                        .addComponent(path)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSeleccionarDestino))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel12)
+                    .addComponent(txtNombreProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         informacionDelProyectoLayout.setVerticalGroup(
             informacionDelProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+            .addGroup(informacionDelProyectoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(informacionDelProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(path)
+                    .addComponent(btnSeleccionarDestino))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+
+        reconocedor.setBackground(new java.awt.Color(255, 255, 255));
+        reconocedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 189, 189)));
+        reconocedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        btnVideoMaster.setBackground(new java.awt.Color(255, 255, 255));
+        btnVideoMaster.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVideoMaster.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVideoMasterMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVideoMasterMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVideoMasterMouseExited(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel22.setText("Video Master");
+
+        jLabel23.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(117, 117, 117));
+        jLabel23.setText("Entrega del video en su estado original");
+
+        iconPlugInVideoMaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Wallpaper Roll-50 (1).png"))); // NOI18N
+        iconPlugInVideoMaster.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconPlugInVideoMasterMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                iconPlugInVideoMasterMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                iconPlugInVideoMasterMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnVideoMasterLayout = new javax.swing.GroupLayout(btnVideoMaster);
+        btnVideoMaster.setLayout(btnVideoMasterLayout);
+        btnVideoMasterLayout.setHorizontalGroup(
+            btnVideoMasterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVideoMasterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(iconPlugInVideoMaster)
+                .addGap(18, 18, 18)
+                .addGroup(btnVideoMasterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnVideoMasterLayout.setVerticalGroup(
+            btnVideoMasterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnVideoMasterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnVideoMasterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(btnVideoMasterLayout.createSequentialGroup()
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel23))
+                    .addComponent(iconPlugInVideoMaster))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnPlugInEnfado.setBackground(new java.awt.Color(255, 255, 255));
+        btnPlugInEnfado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPlugInEnfado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPlugInEnfadoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPlugInEnfadoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPlugInEnfadoMouseExited(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel20.setText("Reconocedor de enfado");
+
+        jLabel21.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(117, 117, 117));
+        jLabel21.setText("Detecta la emoción de enojo dentro de los videos ");
+
+        iconPlugInEnfado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Sad.png"))); // NOI18N
+        iconPlugInEnfado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconPlugInEnfadoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                iconPlugInEnfadoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                iconPlugInEnfadoMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnPlugInEnfadoLayout = new javax.swing.GroupLayout(btnPlugInEnfado);
+        btnPlugInEnfado.setLayout(btnPlugInEnfadoLayout);
+        btnPlugInEnfadoLayout.setHorizontalGroup(
+            btnPlugInEnfadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnPlugInEnfadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(iconPlugInEnfado)
+                .addGap(18, 18, 18)
+                .addGroup(btnPlugInEnfadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21))
+                .addContainerGap(226, Short.MAX_VALUE))
+        );
+        btnPlugInEnfadoLayout.setVerticalGroup(
+            btnPlugInEnfadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnPlugInEnfadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnPlugInEnfadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(btnPlugInEnfadoLayout.createSequentialGroup()
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel21))
+                    .addComponent(iconPlugInEnfado))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnPluginFelicidad.setBackground(new java.awt.Color(255, 255, 255));
+        btnPluginFelicidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPluginFelicidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPluginFelicidadMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPluginFelicidadMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPluginFelicidadMouseExited(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel9.setText("Reconocedor de sonrisa ");
+
+        jLabel19.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(117, 117, 117));
+        jLabel19.setText("Detecta sonrisas dentro de los videos");
+
+        iconPlugInFelicidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Happy.png"))); // NOI18N
+        iconPlugInFelicidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconPlugInFelicidadMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                iconPlugInFelicidadMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                iconPlugInFelicidadMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnPluginFelicidadLayout = new javax.swing.GroupLayout(btnPluginFelicidad);
+        btnPluginFelicidad.setLayout(btnPluginFelicidadLayout);
+        btnPluginFelicidadLayout.setHorizontalGroup(
+            btnPluginFelicidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnPluginFelicidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(iconPlugInFelicidad)
+                .addGap(18, 18, 18)
+                .addGroup(btnPluginFelicidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel19))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnPluginFelicidadLayout.setVerticalGroup(
+            btnPluginFelicidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnPluginFelicidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnPluginFelicidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(btnPluginFelicidadLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel19))
+                    .addComponent(iconPlugInFelicidad))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        btnAgregarPlugIn.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarPlugIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarPlugIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarPlugInMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAgregarPlugInMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAgregarPlugInMouseExited(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(117, 117, 117));
+        jLabel25.setText("Agrega un plug-in para aplicarlo al video master");
+
+        btnFaceRecoder4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Plus.png"))); // NOI18N
+        btnFaceRecoder4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFaceRecoder4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFaceRecoder4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFaceRecoder4MouseExited(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel26.setText("Agregar plug in");
+
+        javax.swing.GroupLayout btnAgregarPlugInLayout = new javax.swing.GroupLayout(btnAgregarPlugIn);
+        btnAgregarPlugIn.setLayout(btnAgregarPlugInLayout);
+        btnAgregarPlugInLayout.setHorizontalGroup(
+            btnAgregarPlugInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAgregarPlugInLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnFaceRecoder4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(btnAgregarPlugInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnAgregarPlugInLayout.createSequentialGroup()
+                    .addGap(88, 88, 88)
+                    .addComponent(jLabel26)
+                    .addContainerGap(398, Short.MAX_VALUE)))
+        );
+        btnAgregarPlugInLayout.setVerticalGroup(
+            btnAgregarPlugInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarPlugInLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnAgregarPlugInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel25)
+                    .addComponent(btnFaceRecoder4))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(btnAgregarPlugInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnAgregarPlugInLayout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(31, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout reconocedorLayout = new javax.swing.GroupLayout(reconocedor);
+        reconocedor.setLayout(reconocedorLayout);
+        reconocedorLayout.setHorizontalGroup(
+            reconocedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnPlugInEnfado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnVideoMaster, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAgregarPlugIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnPluginFelicidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        reconocedorLayout.setVerticalGroup(
+            reconocedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reconocedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPluginFelicidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPlugInEnfado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(btnVideoMaster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnAgregarPlugIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        btnCrearProyecto.setBackground(new java.awt.Color(255, 255, 255));
+        btnCrearProyecto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel24.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(33, 33, 33));
+        jLabel24.setText("Crear proyecto");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-More Than.png"))); // NOI18N
+
+        javax.swing.GroupLayout btnCrearProyectoLayout = new javax.swing.GroupLayout(btnCrearProyecto);
+        btnCrearProyecto.setLayout(btnCrearProyectoLayout);
+        btnCrearProyectoLayout.setHorizontalGroup(
+            btnCrearProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCrearProyectoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        btnCrearProyectoLayout.setVerticalGroup(
+            btnCrearProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCrearProyectoLayout.createSequentialGroup()
+                .addGroup(btnCrearProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(btnCrearProyectoLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout creacionProyectoLayout = new javax.swing.GroupLayout(creacionProyecto);
@@ -522,43 +1023,349 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addComponent(informacionPerspectiva, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informacionDelProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1944, Short.MAX_VALUE))
+                .addGroup(creacionProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(creacionProyectoLayout.createSequentialGroup()
+                        .addGap(367, 367, 367)
+                        .addComponent(btnCrearProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(creacionProyectoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(reconocedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1270, Short.MAX_VALUE))
         );
         creacionProyectoLayout.setVerticalGroup(
             creacionProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(informacionPerspectiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(creacionProyectoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(informacionDelProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(creacionProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(creacionProyectoLayout.createSequentialGroup()
+                        .addComponent(informacionDelProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(creacionProyectoLayout.createSequentialGroup()
+                        .addComponent(reconocedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCrearProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
 
         contenido.add(creacionProyecto, "card2");
 
         ObtencionMuestras.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnObtencionMuestras.setText("Obtención de muestras");
-        btnObtencionMuestras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnObtencionMuestrasMouseClicked(evt);
-            }
-        });
+        jLabel1.setText("Información del proyecto");
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+
+        jLabel4.setText("Configuración de muestras");
+
+        perspectivaFaceRecorder.setBackground(new java.awt.Color(51, 51, 255));
+
+        jLabel27.setText("Icono");
+
+        jLabel28.setText("Nombre de la perspectiva");
+
+        btnVistaPreviaFaceRecorder.setText("Boton vista previa");
+
+        javax.swing.GroupLayout perspectivaFaceRecorderLayout = new javax.swing.GroupLayout(perspectivaFaceRecorder);
+        perspectivaFaceRecorder.setLayout(perspectivaFaceRecorderLayout);
+        perspectivaFaceRecorderLayout.setHorizontalGroup(
+            perspectivaFaceRecorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perspectivaFaceRecorderLayout.createSequentialGroup()
+                .addGroup(perspectivaFaceRecorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(perspectivaFaceRecorderLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel27))
+                    .addGroup(perspectivaFaceRecorderLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel28))
+                    .addGroup(perspectivaFaceRecorderLayout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(btnVistaPreviaFaceRecorder)))
+                .addContainerGap(173, Short.MAX_VALUE))
+        );
+        perspectivaFaceRecorderLayout.setVerticalGroup(
+            perspectivaFaceRecorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perspectivaFaceRecorderLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVistaPreviaFaceRecorder)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        perspectivaExterna.setBackground(new java.awt.Color(102, 255, 102));
+
+        btnVistaPreviaPerspectivaExterna.setText("Boton vista previa");
+
+        jLabel34.setText("Nombre de la perspectiva");
+
+        jLabel33.setText("Icono");
+
+        javax.swing.GroupLayout perspectivaExternaLayout = new javax.swing.GroupLayout(perspectivaExterna);
+        perspectivaExterna.setLayout(perspectivaExternaLayout);
+        perspectivaExternaLayout.setHorizontalGroup(
+            perspectivaExternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perspectivaExternaLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(perspectivaExternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel33)
+                    .addGroup(perspectivaExternaLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel34))
+                    .addGroup(perspectivaExternaLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(btnVistaPreviaPerspectivaExterna)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        perspectivaExternaLayout.setVerticalGroup(
+            perspectivaExternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, perspectivaExternaLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVistaPreviaPerspectivaExterna)
+                .addGap(20, 20, 20))
+        );
+
+        perspectivaActivityRender.setBackground(new java.awt.Color(255, 51, 51));
+
+        jLabel31.setText("Nombre de la perspectiva");
+
+        jLabel30.setText("Icono");
+
+        btnVistaPreviaActivityRender.setText("Boton vista previa");
+
+        javax.swing.GroupLayout perspectivaActivityRenderLayout = new javax.swing.GroupLayout(perspectivaActivityRender);
+        perspectivaActivityRender.setLayout(perspectivaActivityRenderLayout);
+        perspectivaActivityRenderLayout.setHorizontalGroup(
+            perspectivaActivityRenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perspectivaActivityRenderLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(perspectivaActivityRenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel30)
+                    .addGroup(perspectivaActivityRenderLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel31))
+                    .addGroup(perspectivaActivityRenderLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(btnVistaPreviaActivityRender)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        perspectivaActivityRenderLayout.setVerticalGroup(
+            perspectivaActivityRenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perspectivaActivityRenderLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVistaPreviaActivityRender)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout PerspectivasLayout = new javax.swing.GroupLayout(Perspectivas);
+        Perspectivas.setLayout(PerspectivasLayout);
+        PerspectivasLayout.setHorizontalGroup(
+            PerspectivasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PerspectivasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PerspectivasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(perspectivaFaceRecorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(perspectivaActivityRender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(perspectivaExterna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        PerspectivasLayout.setVerticalGroup(
+            PerspectivasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PerspectivasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(perspectivaFaceRecorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(perspectivaActivityRender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(perspectivaExterna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(Perspectivas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Perspectivas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel29.setText("Panel de control");
+
+        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+
+        jLabel32.setText("Nombre de la muestra:");
+
+        jLabel35.setText("<<nombre de la muestra>>");
+
+        jLabel36.setText("boton iniciar");
+
+        jLabel37.setText("boton detener");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel32))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel35)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel37)
+                .addGap(200, 200, 200))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37))
+                .addGap(22, 22, 22))
+        );
+
+        jPanel6.setBackground(new java.awt.Color(204, 255, 204));
+
+        jLabel38.setText("Guardar fuentes");
+
+        jLabel39.setText("Descartar fuentes");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(217, 217, 217)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel38))
+                .addContainerGap(302, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel38)
+                .addGap(87, 87, 87)
+                .addComponent(jLabel39)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel29)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel29)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout ObtencionMuestrasLayout = new javax.swing.GroupLayout(ObtencionMuestras);
         ObtencionMuestras.setLayout(ObtencionMuestrasLayout);
         ObtencionMuestrasLayout.setHorizontalGroup(
             ObtencionMuestrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ObtencionMuestrasLayout.createSequentialGroup()
-                .addGap(1116, 1116, 1116)
-                .addComponent(btnObtencionMuestras)
-                .addContainerGap(1413, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1284, Short.MAX_VALUE))
         );
         ObtencionMuestrasLayout.setVerticalGroup(
             ObtencionMuestrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ObtencionMuestrasLayout.createSequentialGroup()
-                .addContainerGap(350, Short.MAX_VALUE)
-                .addComponent(btnObtencionMuestras)
-                .addGap(146, 146, 146))
+            .addGroup(ObtencionMuestrasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ObtencionMuestrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         contenido.add(ObtencionMuestras, "card3");
@@ -621,16 +1428,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
       
         
     }//GEN-LAST:event_textoPestanaMouseClicked
-
-    private void btnObtencionMuestrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnObtencionMuestrasMouseClicked
-        // TODO add your handling code here:
-        textoPestana.setText("Visualización de muestras");
-        infoPestana.setText("Gestione las muestras de su experimento");
-        
-        creacionProyecto.setVisible(false);
-        ObtencionMuestras.setVisible(false);
-        visualizacionMuestras.setVisible(true);
-    }//GEN-LAST:event_btnObtencionMuestrasMouseClicked
 
     private void btnAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseClicked
         // TODO add your handling code here:
@@ -858,6 +1655,236 @@ public class PestanasPrincipal extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_btnSeleccionarDispositivoMouseClicked
+
+    private void txtNombreProyectoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreProyectoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreProyectoFocusGained
+
+    private void txtNombreProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreProyectoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreProyectoMouseClicked
+
+    private void txtNombreProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreProyectoActionPerformed
+
+    private void txtNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProyectoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreProyectoKeyTyped
+
+    private void txtCodigoProyectoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoProyectoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProyectoFocusGained
+
+    private void txtCodigoProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoProyectoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProyectoMouseClicked
+
+    private void txtCodigoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProyectoActionPerformed
+
+    private void txtCodigoProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProyectoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProyectoKeyTyped
+
+    private void btnSeleccionarDestinoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSeleccionarDestinoMouseClicked
+        // TODO add your handling code here:
+            seleccionarArchivo(JFileChooser.DIRECTORIES_ONLY, "Guardar", path, "", "C:\\");
+    }//GEN-LAST:event_btnSeleccionarDestinoMouseClicked
+
+    private void iconPlugInFelicidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInFelicidadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInFelicidadMouseClicked
+
+    private void iconPlugInFelicidadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInFelicidadMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInFelicidadMouseEntered
+
+    private void iconPlugInFelicidadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInFelicidadMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInFelicidadMouseExited
+
+    private void btnPluginFelicidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPluginFelicidadMouseClicked
+        // TODO add your handling code here:
+        if (plugInFelicidad == false){
+        plugInFelicidad = true;
+        
+         setLblColor(btnPluginFelicidad);
+             iconPlugInFelicidad.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+             //si ya hay un plug in seleccionado
+             if (plugInEnfado==true){
+                 plugInEnfado= false;
+                 resetLblColor(btnPlugInEnfado);
+                              }
+             if(plugInVideoMaster== true){
+             plugInVideoMaster= false;
+                 resetLblColor(btnVideoMaster);
+             }
+        }
+        else{
+        plugInFelicidad = false;
+         resetLblColor(btnPluginFelicidad);
+        }
+    }//GEN-LAST:event_btnPluginFelicidadMouseClicked
+
+    private void btnPluginFelicidadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPluginFelicidadMouseEntered
+        // TODO add your handling code here:
+                  if (plugInFelicidad==true){
+        
+         iconPlugInFelicidad.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+        }
+        else {
+        iconPlugInFelicidad.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Plus.png"))));
+               setLblColor(btnPluginFelicidad);
+        }
+    }//GEN-LAST:event_btnPluginFelicidadMouseEntered
+
+    private void btnPluginFelicidadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPluginFelicidadMouseExited
+        // TODO add your handling code here:
+              iconPlugInFelicidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Happy.png")));
+              if (plugInFelicidad==false){
+        
+       resetLblColor(btnPluginFelicidad);
+        }
+    }//GEN-LAST:event_btnPluginFelicidadMouseExited
+
+    private void iconPlugInEnfadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInEnfadoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInEnfadoMouseClicked
+
+    private void iconPlugInEnfadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInEnfadoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInEnfadoMouseEntered
+
+    private void iconPlugInEnfadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInEnfadoMouseExited
+        // TODO add your handling code here:
+   
+    }//GEN-LAST:event_iconPlugInEnfadoMouseExited
+
+    private void btnPlugInEnfadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlugInEnfadoMouseClicked
+        // TODO add your handling code here:
+                     if (plugInEnfado == false){
+        plugInEnfado = true;
+        
+         setLblColor(btnPlugInEnfado);
+             iconPlugInEnfado.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+             //si ya hay un plug in seleccionado
+             if (plugInEnfado==true){
+                 plugInFelicidad= false;
+                 resetLblColor(btnPluginFelicidad);
+                              }
+             if(plugInVideoMaster== true){
+             plugInVideoMaster= false;
+                 resetLblColor(btnVideoMaster);
+             }
+        }
+        else{
+        plugInEnfado = false;
+         resetLblColor(btnPlugInEnfado);
+        }
+    }//GEN-LAST:event_btnPlugInEnfadoMouseClicked
+
+    private void btnPlugInEnfadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlugInEnfadoMouseEntered
+        // TODO add your handling code here:
+                          if (plugInEnfado==true){
+        
+         iconPlugInEnfado.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+        }
+        else {
+        iconPlugInEnfado.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Plus.png"))));
+               setLblColor(btnPlugInEnfado);
+        }
+    }//GEN-LAST:event_btnPlugInEnfadoMouseEntered
+
+    private void btnPlugInEnfadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlugInEnfadoMouseExited
+        // TODO add your handling code here:
+    iconPlugInEnfado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Sad.png")));
+              if (plugInEnfado==false){
+        
+       resetLblColor(btnPlugInEnfado);
+        }
+    }//GEN-LAST:event_btnPlugInEnfadoMouseExited
+
+    private void iconPlugInVideoMasterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInVideoMasterMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInVideoMasterMouseClicked
+
+    private void iconPlugInVideoMasterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInVideoMasterMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInVideoMasterMouseEntered
+
+    private void iconPlugInVideoMasterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPlugInVideoMasterMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iconPlugInVideoMasterMouseExited
+
+    private void btnVideoMasterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVideoMasterMouseClicked
+        // TODO add your handling code here:
+              if (plugInVideoMaster == false){
+        plugInVideoMaster = true;
+        
+         setLblColor(btnVideoMaster);
+             iconPlugInVideoMaster.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+             //si ya hay un plug in seleccionado
+             if (plugInEnfado==true){
+                 plugInEnfado= false;
+                 resetLblColor(btnPlugInEnfado);
+                              }
+             if(plugInFelicidad==true){
+                plugInFelicidad= false;
+                resetLblColor(btnPluginFelicidad);
+             }
+        }
+        else{
+        plugInVideoMaster = false;
+         resetLblColor(btnVideoMaster);
+        }
+    }//GEN-LAST:event_btnVideoMasterMouseClicked
+
+    private void btnVideoMasterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVideoMasterMouseEntered
+        // TODO add your handling code here:
+            if (plugInVideoMaster==true){
+        
+         iconPlugInVideoMaster.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/delete_black.png"))));
+        }
+        else {
+      iconPlugInVideoMaster.setIcon((new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Plus.png"))));
+               setLblColor(btnVideoMaster);
+        }
+    }//GEN-LAST:event_btnVideoMasterMouseEntered
+
+    private void btnVideoMasterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVideoMasterMouseExited
+        // TODO add your handling code here:
+            iconPlugInVideoMaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-Wallpaper Roll-50 (1).png"))); 
+              if (plugInVideoMaster==false){
+        
+       resetLblColor(btnVideoMaster);
+        }
+    }//GEN-LAST:event_btnVideoMasterMouseExited
+
+    private void btnFaceRecoder4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFaceRecoder4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFaceRecoder4MouseClicked
+
+    private void btnFaceRecoder4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFaceRecoder4MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFaceRecoder4MouseEntered
+
+    private void btnFaceRecoder4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFaceRecoder4MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFaceRecoder4MouseExited
+
+    private void btnAgregarPlugInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarPlugInMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarPlugInMouseClicked
+
+    private void btnAgregarPlugInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarPlugInMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarPlugInMouseEntered
+
+    private void btnAgregarPlugInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarPlugInMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarPlugInMouseExited
     public void activarDispositivoSeleccionado(){
      if (informacionProyecto.getDispositivoSeleccionado()==true){
          
@@ -875,6 +1902,23 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     {
         lbl.setBackground(new Color(255,255,255));
     }
+           private void seleccionarArchivo(int fileSelectionMode, String approveButtonText, JLabel field, String fileFilter, String currentDirectory)
+     {
+         System.out.println("entre");
+         JFileChooser fileChooser = new JFileChooser();
+     fileChooser.setFileSelectionMode(fileSelectionMode);
+     if(!"".equals(fileFilter)){
+         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*." + fileFilter, fileFilter.toLowerCase(), fileFilter.toUpperCase());
+         fileChooser.setFileFilter(filtro);
+     }
+     fileChooser.setCurrentDirectory(new File(currentDirectory));
+     int result = fileChooser.showDialog(this, approveButtonText);
+      if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            field.setText(selectedFile.getAbsolutePath());
+        }
+     
+     }
       
     /**
      * @param args the command line arguments
@@ -914,41 +1958,109 @@ public class PestanasPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ObtencionMuestras;
+    private javax.swing.JPanel Perspectivas;
     private javax.swing.JPanel agregarPerspectiva;
     private javax.swing.JPanel barraPrimaria;
     private javax.swing.JPanel barraPrincipal;
     private javax.swing.JLabel btnActivityRender;
     private javax.swing.JLabel btnAgregarPerspectiva;
+    private javax.swing.JPanel btnAgregarPlugIn;
     private javax.swing.JLabel btnAtras;
     private javax.swing.JLabel btnBuscarDireccionIp;
     private javax.swing.JLabel btnConfiguracion;
     private javax.swing.JLabel btnConsultas;
+    private javax.swing.JPanel btnCrearProyecto;
     private javax.swing.JLabel btnFaceRecoder;
-    private javax.swing.JLabel btnObtencionMuestras;
+    private javax.swing.JLabel btnFaceRecoder4;
+    private javax.swing.JPanel btnPlugInEnfado;
+    private javax.swing.JPanel btnPluginFelicidad;
+    private javax.swing.JLabel btnSeleccionarDestino;
     private javax.swing.JLabel btnSeleccionarDispositivo;
+    private javax.swing.JPanel btnVideoMaster;
+    private javax.swing.JLabel btnVistaPreviaActivityRender;
+    private javax.swing.JLabel btnVistaPreviaFaceRecorder;
+    private javax.swing.JLabel btnVistaPreviaPerspectivaExterna;
     private javax.swing.JPanel conexion;
     private javax.swing.JPanel contenido;
     private javax.swing.JPanel creacionProyecto;
     private javax.swing.JTextField direccionIp;
+    private javax.swing.JTextField direccionIp3;
+    private javax.swing.JLabel iconPlugInEnfado;
+    private javax.swing.JLabel iconPlugInFelicidad;
+    private javax.swing.JLabel iconPlugInVideoMaster;
     private javax.swing.JLabel infoPestana;
     private javax.swing.JPanel informacionDelProyecto;
+    private javax.swing.JPanel informacionDelProyecto1;
     private javax.swing.JPanel informacionPerspectiva;
     private javax.swing.JPanel informacionPerspectiva1a;
     private javax.swing.JPanel informacionPerspectiva1b;
     private javax.swing.JPanel informacionPerspectiva1c;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JLabel path;
+    private javax.swing.JLabel path1;
+    private javax.swing.JPanel perspectivaActivityRender;
+    private javax.swing.JPanel perspectivaExterna;
+    private javax.swing.JPanel perspectivaFaceRecorder;
     private javax.swing.JPanel principal;
+    private javax.swing.JPanel reconocedor;
     private javax.swing.JLabel textoPestana;
+    private javax.swing.JTextField txtCodigoProyecto;
+    private javax.swing.JTextArea txtDescripcionProyecto;
     private javax.swing.JLabel txtDispositivoSeleccionado;
+    private javax.swing.JTextField txtNombreProyecto;
     private javax.swing.JLabel txtSeleccionarDispositivo;
     private javax.swing.JPanel visualizacionMuestras;
     // End of variables declaration//GEN-END:variables
