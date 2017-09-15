@@ -7,35 +7,54 @@ package codeebox.vistas;
 import infoProyecto.CapturaInformacion;
 import perspectiva.PerspectivaCliente;
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 
 /**
  *
  * @author Katherine
  */
 public class PestanasPrincipal extends javax.swing.JFrame {
+    //informacion de la perspectiva
+    boolean faceRecoder = false;//check
+    boolean activityRender = false;//check
+    boolean nuevaPerspectiva = false;//check
+    //informacion del proyecto
+    String nombreProyecto=""; //check
+    String pathProyecto=""; //check
+    String codigoProyecto=""; //check
+    String descripcionProyecto=""; //check
+    //reconocedor plug-in
+    boolean plugInFelicidad = false;
+    boolean plugInEnfado = false;
+    boolean plugInVideoMaster = false;
+    
     
     CapturaInformacion informacionProyecto = new CapturaInformacion();
-    boolean faceRecoder = false;
-    boolean activityRender = false;
-    boolean nuevaPerspectiva = false;
+   
     String direccionIpEscrita,dispositivoSeleccionado;
     ArrayList<String> dipositivos ;
     boolean ipValida= true;
     public static boolean ScreenGo = false;
     public static boolean ScreenStop = false;
     public boolean abortar = false;
-    //plug-in
-    boolean plugInFelicidad = false;
-    boolean plugInEnfado = false;
-    boolean plugInVideoMaster = false;
+   
     
     //Socket 
     private final String ipOld = "";
@@ -159,8 +178,27 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         visualizacionMuestras = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jScrollBar1 = new javax.swing.JScrollBar();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel53 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -986,6 +1024,11 @@ public class PestanasPrincipal extends javax.swing.JFrame {
 
         btnCrearProyecto.setBackground(new java.awt.Color(255, 255, 255));
         btnCrearProyecto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCrearProyectoMouseClicked(evt);
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(33, 33, 33));
@@ -1002,7 +1045,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         btnCrearProyectoLayout.setVerticalGroup(
             btnCrearProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1030,7 +1073,7 @@ public class PestanasPrincipal extends javax.swing.JFrame {
                     .addGroup(creacionProyectoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(reconocedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1270, Short.MAX_VALUE))
+                .addContainerGap(1274, Short.MAX_VALUE))
         );
         creacionProyectoLayout.setVerticalGroup(
             creacionProyectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1372,41 +1415,190 @@ public class PestanasPrincipal extends javax.swing.JFrame {
 
         visualizacionMuestras.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Visualización de muestras");
+        jLabel40.setText("Información del proyecto");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40))
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel40)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel41.setText("Muestras almacenadas");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel41)
+                .addContainerGap(268, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        jLabel42.setText("Panel de control");
+
+        jLabel43.setText("Nombre de la muestra:");
+
+        jLabel44.setText("nombre");
+
+        jLabel45.setText("Fecha de la muestra:");
+
+        jLabel46.setText("fecha");
+
+        jLabel47.setText("Duración:");
+
+        jLabel48.setText("00:00:00");
+
+        jLabel49.setText("Sujeto");
+
+        jLabel50.setText("Katherine Liberona");
+
+        jLabel51.setText("Descripción");
+
+        jLabel52.setText("Lorem ipsu");
+
+        jPanel10.setBackground(new java.awt.Color(0, 255, 102));
+
+        jLabel53.setText("Ver muestra");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(149, 149, 149)
+                .addComponent(jLabel53)
+                .addContainerGap(186, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel53)
+                .addContainerGap(59, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel51)
+                    .addComponent(jLabel42)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel43)
+                            .addComponent(jLabel45)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel49))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel48)
+                                    .addComponent(jLabel46)
+                                    .addComponent(jLabel44)))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel52)
+                                    .addComponent(jLabel50))))))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel42)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel43)
+                    .addComponent(jLabel44))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel46))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(jLabel48))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49)
+                    .addComponent(jLabel50))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(jLabel52))
+                .addGap(69, 69, 69)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout visualizacionMuestrasLayout = new javax.swing.GroupLayout(visualizacionMuestras);
         visualizacionMuestras.setLayout(visualizacionMuestrasLayout);
         visualizacionMuestrasLayout.setHorizontalGroup(
             visualizacionMuestrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(visualizacionMuestrasLayout.createSequentialGroup()
-                .addGap(1203, 1203, 1203)
-                .addComponent(jLabel3)
-                .addContainerGap(1316, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         visualizacionMuestrasLayout.setVerticalGroup(
             visualizacionMuestrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, visualizacionMuestrasLayout.createSequentialGroup()
-                .addContainerGap(440, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(56, 56, 56))
+            .addGroup(visualizacionMuestrasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(visualizacionMuestrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(visualizacionMuestrasLayout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         contenido.add(visualizacionMuestras, "card4");
 
         principal.add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 2640, 510));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        principal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1885,6 +2077,21 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private void btnAgregarPlugInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarPlugInMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarPlugInMouseExited
+
+    private void btnCrearProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearProyectoMouseClicked
+        // TODO add your handling code here:
+        nombreProyecto=txtNombreProyecto.getText();
+        pathProyecto=path.getText();
+        codigoProyecto = txtCodigoProyecto.getText();
+        descripcionProyecto = txtDescripcionProyecto.getText();
+        System.out.println("path Proyecto: "+ pathProyecto);
+        try {
+            leerInformacion();
+        } catch (IOException ex) {
+            Logger.getLogger(PestanasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnCrearProyectoMouseClicked
     public void activarDispositivoSeleccionado(){
      if (informacionProyecto.getDispositivoSeleccionado()==true){
          
@@ -1919,7 +2126,41 @@ public class PestanasPrincipal extends javax.swing.JFrame {
         }
      
      }
-      
+    public String verdaderoFalso(boolean alternativa){
+        if(alternativa == true){
+        return "true";
+        }
+        return "false";
+    }
+    public void leerInformacion() throws FileNotFoundException, IOException{
+        JSONObject obj = new JSONObject();
+         JSONArray perspectiva = new JSONArray();
+        perspectiva.add(verdaderoFalso(faceRecoder));
+        perspectiva.add(verdaderoFalso(activityRender));
+        perspectiva.add(verdaderoFalso(nuevaPerspectiva));
+
+        obj.put("perspectiva", perspectiva);
+        obj.put("nombreProyecto", nombreProyecto);
+        obj.put("destinoProyecto",pathProyecto);
+        obj.put("codigoProyecto",codigoProyecto);
+        obj.put("descripcionProyecto",descripcionProyecto);
+        JSONArray reconocedor = new JSONArray();
+        reconocedor.add(verdaderoFalso(plugInFelicidad));
+        reconocedor.add(verdaderoFalso(plugInEnfado));
+        reconocedor.add(verdaderoFalso(plugInVideoMaster));
+        obj.put("reconocedor",reconocedor);
+        
+
+        try (FileWriter file = new FileWriter(pathProyecto+"\\test.json")) {
+
+            file.write(obj.toJSONString());
+            file.flush();
+
+        } catch (IOException e) {
+        }
+        
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -1984,13 +2225,11 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel contenido;
     private javax.swing.JPanel creacionProyecto;
     private javax.swing.JTextField direccionIp;
-    private javax.swing.JTextField direccionIp3;
     private javax.swing.JLabel iconPlugInEnfado;
     private javax.swing.JLabel iconPlugInFelicidad;
     private javax.swing.JLabel iconPlugInVideoMaster;
     private javax.swing.JLabel infoPestana;
     private javax.swing.JPanel informacionDelProyecto;
-    private javax.swing.JPanel informacionDelProyecto1;
     private javax.swing.JPanel informacionPerspectiva;
     private javax.swing.JPanel informacionPerspectiva1a;
     private javax.swing.JPanel informacionPerspectiva1b;
@@ -2001,8 +2240,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -2017,7 +2254,6 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -2029,28 +2265,45 @@ public class PestanasPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel path;
-    private javax.swing.JLabel path1;
     private javax.swing.JPanel perspectivaActivityRender;
     private javax.swing.JPanel perspectivaExterna;
     private javax.swing.JPanel perspectivaFaceRecorder;

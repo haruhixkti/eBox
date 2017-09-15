@@ -328,7 +328,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      public void resetColor(JPanel panel){
           panel.setBackground(new java.awt.Color(255,255,255));
      } 
-     private void seleccionarArchivo(int fileSelectionMode, String approveButtonText, JTextField field, String fileFilter, String currentDirectory){
+     private void seleccionarArchivo(int fileSelectionMode, String approveButtonText, JTextField field, String fileFilter, String currentDirectory)
+     {
          System.out.println("entre");
          JFileChooser fileChooser = new JFileChooser();
      fileChooser.setFileSelectionMode(fileSelectionMode);

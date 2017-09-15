@@ -5,6 +5,12 @@
  */
 package infoProyecto;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author Katherine
@@ -17,9 +23,21 @@ public class CapturaInformacion {
     public boolean getDispositivoSeleccionado(){
     return dispositivoSeleccionado;
     }
-    public boolean guardarInformacion(){
+    public static boolean guardarInformacion(){
     
     return true;
     }
-    
+    public static boolean leerInformacion(String path) throws FileNotFoundException, IOException{
+    File archivo = new File (path);
+    FileReader fr = new FileReader(archivo);
+    BufferedReader br = new BufferedReader(fr);
+    String linea = br.readLine();
+        System.out.println("linea:"+ linea);
+        return true;
+    }
+        public static void main(String args[]) throws IOException {
+        boolean archivoEncontrado;
+            archivoEncontrado = leerInformacion("C:\\Users\\Katherine\\Desktop\\archivo.txt");
+            
+    }
 }

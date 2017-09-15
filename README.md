@@ -9,3 +9,13 @@
 @primaryTextColor:   #212121; 33,33,33
 @secondaryTextColor: #757575; 117,117,117
 @dividerColor:       #BDBDBD; 189,189,189
+
+{
+
+	"perspectiva":["true","false","true"],
+	"nombreProyecto":"nombre del proyecto",
+	"destinoProyecto":"c://destino",
+	"codigoProyecto": "pro1e2",
+	"descripcionProyecto": "este es un proyecto y esta es su descripcion",
+	"reconocedor":"nombreReconocedor/plugin"
+}
